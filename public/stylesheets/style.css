@@ -1,0 +1,106 @@
+
+  html, body {
+    height: 100%;
+    width: 100%;
+  }
+  
+  main{
+    min-height: 100%;
+  }
+
+  .footer{
+    background-color: #343a40;
+    color: rgb(223, 222, 222);
+    height: 140px;
+    position: relative;
+  }
+  
+  .footer .footer-bottom {
+    background-color: #272a2e;
+    color: rgb(167, 167, 167);
+    height: 20px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+  }
+
+ .footer .footer-content {
+    height: 150px;
+    display: flex;
+  }
+
+  .footer .footer-content .footer-section {
+    flex: 1;
+    margin: auto;
+    display: flex;
+    padding-left: 30px;
+    align-items: center;
+  }
+
+  .profile {
+    margin: 20px 0;
+  }
+  
+  .profile-sidebar {
+    padding: 20px 0 20px 0;
+    background: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-userpic img {
+    float: none;
+    margin: auto;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 90%;
+    height: 100%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 30% !important;
+  }
+  
+  .profile-usertitle {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .profile-usertitle-name {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+  
+  .profile-userbuttons .btn {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
+  }
+  
+  .profile-userbuttons .btn:last-child {
+    margin-right: 0px;
+  }
+  
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }

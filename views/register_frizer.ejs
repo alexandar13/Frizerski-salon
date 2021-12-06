@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Salon</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<main style="margin-bottom: 20px; margin-top: 0px;">
+    <%- include('partials/navbar.ejs'); %>
+    <div class="row mt-5">
+        <div class="col-md-6 m-auto">
+            <div class="card card-body">
+                <h1 class="text-center mb-3">
+                    <i class="fa fa-user-plus"></i> Registruj frizera
+                </h1>         
+                <%- include('partials/messages.ejs'); %>
+                <form action="/register_frizer" method="POST">
+                    <div class="form-group">
+                        <label for="name">Ime i prezime</label>
+                        <input type="name" id="name" name="name" class="form-control" placeholder="Unesi ime i prezime"
+                            value="<%= typeof name != 'undefined' ? name : '' %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Unesi email"
+                            value="<%= typeof email != 'undefined' ? email : '' %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Lozinka</label>
+                        <input type="password" id="password" name="password" class="form-control"
+                            placeholder="Unesi lozinku"
+                            value="<%= typeof password != 'undefined' ? password : '' %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Potvrdi lozinku</label>
+                        <input type="password" id="password2" name="password2" class="form-control"
+                            placeholder="Potvrdi lozinku"
+                            value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="slika">URL slike</label>
+                        <input type="name" id="slika" name="slika" class="form-control" 
+                            placeholder="Unesi URL slike"
+                            value="<%= typeof slika != 'undefined' ? slika : '' %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="opis">Opis</label>
+                        <input type="name" id="opis" name="opis" class="form-control" 
+                            placeholder="Unesi opis frizera"
+                            value="<%= typeof opis != 'undefined' ? opis : '' %>" />
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-block">
+                        Registruj frizera
+                    </button>
+                </form>
+                <br>
+                <a style="color: rgb(190, 28, 28);" href="/frizeri" >Vrati se nazad</a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+    <%- include ('partials/footer.ejs'); %>

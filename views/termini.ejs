@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Salon</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <main>
+        <%- include('partials/navbar.ejs'); %>
+        <%- include('partials/messages.ejs'); %>
+        <div class="container">
+            <section class="jumbotron text-center">
+                <div class="container">
+                    <h1 style="letter-spacing: 10px; text-transform: uppercase;">Termini</h1>
+                    <p class="lead text-muted">Zakažite klikom na željeni slobodni termin</p>
+                    <p class="lead text-muted">Ukoliko ste rezervisali pogrešan termin, možete ga otkazati klikom na Vaš
+                        zakazani termin</p>
+                </div>
+            </section>
+            <br>
+            <table class="table table-dark table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <% for(i=8; i<profil.radnoVreme+8;i++){%>
+                        <% var j=i+1 %>
+                        <th scope="col" class="text-center"> <%= i + ":00 - " + j + ":00" %> </th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <% dan.termini.forEach(function(termin){ %>
+                        <%if(termin.tip=="slobodan"){ %>
+                        <td class="text-center"> <button class="btn btn-success" data-toggle="modal"
+                                data-target="#myModal<%= termin._id %>"><%= termin.tip %></button> </td>
+                        <%}else{%>
+                        <%if(currentUser.type=="admin" || profil.author.id.equals(currentUser._id) || termin.ime == currentUser.name){ %>
+                        <td class="text-center"> <button class="btn btn-danger" data-toggle="modal"
+                                data-target="#myModal<%= termin._id %>"> <%= termin.tip + " - " + termin.ime%></button>
+                        </td>
+                        <%}else{ %>
+                        <td class="text-center"> <button class="btn btn-danger">
+                                <%= termin.tip + " - " + termin.ime%></button> </td>
+                        <%}%>              
+                    <% }}) %>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <a style="color: rgb(190, 28, 28);" href="/<%=profil._id%>/termin">Vrati se na kalendar</a>
+
+            <% dan.termini.forEach(function(termin){ %>
+            <%if(termin.tip=="slobodan"){ %>
+            <div class="modal" id="myModal<%= termin._id %>" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Zakazivanje termina</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Da li ste sigurni da zelite da zakažete ovaj termin?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-dismiss="modal">Odustani</button>
+                            <a href="/frizeri/<%=profil._id%>/termin/<%=dan._id%>/<%=termin._id%>/zakazi"><button
+                                    type="button" class="btn btn-danger">Zakaži</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }else{ %>
+            <div class="modal" id="myModal<%= termin._id %>" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Otkazivanje termina</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Da li ste sigurni da zelite da otkažete ovaj termin?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-dismiss="modal">Odustani</button>
+                            <a href="/frizeri/<%=profil._id%>/termin/<%=dan._id%>/<%=termin._id%>/otkazi"><button
+                                    type="button" class="btn btn-danger">Otkaži termin</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+         <% }) %>
+        </div>
+    </main>
+    <%- include('partials/footer.ejs'); %>
+</body>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Salon</title>
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
+<%- include('partials/navbar.ejs'); %>
+
+<body>
+  <main role="main">
+    <div class="container">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 style="letter-spacing: 10px; text-transform: uppercase;">Frizeri</h1>
+          <p class="lead text-muted">Pogledajte prethodne radove i ocene naših frizera! Nađite termin koji vam najviše
+            odgovara! </p>
+          <p class="lead text-muted">Vidite frizere raspoređene po ocenama: </p>
+          <div class="btn-group">
+            <a class="btn btn-outline-danger" href="/frizeri/ocena/najveca_prvo"> Prvo najveća</a>
+            <a class="btn btn-outline-danger" href="/frizeri/ocena/najmanja_prvo"> Prvo najmanja</a>
+            <a class="btn btn-outline-danger" href="/frizeri"> Bez filtera</a>
+          </div>
+        </div>
+      </section>
+    </div>
+    <%- include('partials/messages.ejs'); %>
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div class="row">
+          <% if(profili) { %>
+          <% for(var i=0; i<profili.length;i++){%>
+          <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card mb-4 shadow">
+              <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="<%= profili[i].image %> "
+                preserveAspectRatio="xMidYMid slice">
+              <div class="card-body">
+                <p class="card-text"> <%= profili[i].name %> </p>
+                <p class="card-text"> <%= profili[i].description %> </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group profile-userbuttons">
+                    <a type="button" class="btn btn-sm btn-outline-dark" href="/frizeri/<%= profili[i].id %>">Vidi</a>
+                    <% if(currentUser && currentUser.type == "admin" || currentUser && currentUser._id.equals(profili[i].author.id)) { %>
+                    <button class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#myModal<%= profili[i]._id %>">Obriši</button>
+                    <% } %>
+                    <% if(currentUser && currentUser.type == "admin" || currentUser && currentUser._id.equals(profili[i].author.id)) { %>
+                    <a type="button" class="btn btn-sm btn-outline-dark" href="/edit/<%= profili[i].id %>">Izmeni</a>
+                    <% } %>
+                  </div class="text-right">
+                  <small class="text-muted"> Ocena: <% if(profili[i].prosecna_ocena){ %>
+                    <%= profili[i].prosecna_ocena.toFixed(2); %> <% }%></small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } }%>
+        </div>
+      </div>
+      <footer class="text-muted">
+        <div class="container">
+          <p class="float-right">
+            <a style="color: rgb(190, 28, 28);" href="#">Vrati se na početak</a>
+          </p>
+        </div>
+      </footer>
+  </main>
+  <% if(profili) { %>
+  <% for(var i=0; i<profili.length;i++){%>
+  <div class="modal" id="myModal<%= profili[i]._id %>" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Brisanje profila frizera <%= profili[i].name %></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Da li ste sigurni da zelite da obrišete profil?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Odustani</button>
+                <form action="/delete/<%= profili[i]._id %>?_method=DELETE" method="POST" class="delete-form">
+                  <button class="btn btn-danger">Obriši</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<% }} %>
+  <%- include ('partials/footer.ejs'); %>

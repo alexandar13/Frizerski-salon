@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Salon</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <%- include('partials/navbar.ejs'); %>
+<main>
+    <div class="row mt-5">
+        <div class="col-md-6 m-auto">
+            <div class="card card-body">
+                <h2 class="text-center mb-3">Izmeni podatke o frizeru <%=profil.name%>
+                </h2>         
+                <%- include('partials/messages.ejs'); %>
+                <form action="/edit/<%= profil.id %>" method="POST">
+                    <div class="form-group">
+                        <label for="name">Ime i prezime</label>
+                        <input type="name" id="name" name="name" class="form-control" placeholder="Unesi ime i prezime"
+                            value="<%= profil.name %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Unesi email"
+                            value="<%= user.email %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="image">URL slike</label>
+                        <input type="name" id="image" name="image" class="form-control" 
+                            placeholder="Unesi URL slike"
+                            value="<%= profil.image %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Opis</label>
+                        <input type="name" id="description" name="description" class="form-control" 
+                            placeholder="Unesi opis frizera"
+                            value="<%= profil.description %>" />
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-block">
+                        Potvrdi
+                    </button>
+                </form>
+                <br>
+                <a style="color: rgb(190, 28, 28);" href="/frizeri" >Vrati se nazad</a>
+            </div>
+        </div>
+    </div>
+</main>
+    <%- include ('partials/footer.ejs'); %>
